@@ -1,0 +1,58 @@
+---
+layout: runbook
+title: '#4471 · three problems, not one'
+owner: support desk
+status: draft
+reviewed: 2026-10-28
+signature: v1.eyJzdWIiOiIyNzU0IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxNzM3MzgsImV4cCI6MTc5MzI2MDEzOH0.x7x5qGSiZ-qKChD4n_5S7Rc14PwYOxXP5rLDhzE3zQo
+---
+
+<script>
+  import SplitTable from '#lib/kb/SplitTable.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+[#4471](/kb/incidents/4471) was marked known: one parser bug, one fix queued. Read report by report,
+it holds **three different problems**. The first one is what the ticket says. The other two are
+not fixed by that fix.
+
+<Callout kind="warn">
+Fixing the parser closes only the first row below. The form hint and the one-day moves keep happening.
+</Callout>
+
+## The three problems
+
+<SplitTable ticket={4471} />
+
+1. **Parser** ([issue 1](https://github.com/MKurpinski/what-it-shows/issues/1)). The shared parser reads
+   every date month first. Every tenant on file writes the day first, so their dates flip. This is the bug in the ticket title.
+2. **Form hint** ([issue 2](https://github.com/MKurpinski/what-it-shows/issues/2)). Only on the `booking-v3`
+   form, only on the form channel. The form prints `MM/DD/YYYY` under the date field. People type what it says,
+   and the form then reads it the tenant's way. The parser fix does not touch it.
+3. **One-day move** ([issue 3](https://github.com/MKurpinski/what-it-shows/issues/3)). The desk read these
+   as a move of one day, not a swapped month and day. By tenant they land under `parser`, but the symptom does not match.
+   The likely cause is a time zone or day boundary. That is a reading of the report text, not a confirmed cause.
+
+## What the old table showed
+
+The table below is the existing view of #4471. It sorts reports into two causes, so the five one-day
+moves still sit inside `parser`, and it says `hint` has no ticket of its own.
+
+<CauseTable ticket={4471} />
+
+## Why they were merged
+
+[Decision 0001](/kb/decisions/0001-dedupe-by-subject) merges on subject line alone. Subjects here are
+generic ("Invite came on the wrong day"), so different causes share them. Intake also tagged reports
+from the browser locale, which does not say which form or channel a report came through. Many `hint`
+reports were tagged `parser`.
+
+## What to do
+
+- Keep three tickets, one per row above. Count each report once, in one of them.
+- Check a new date report against its tenant's locale and booking form before you merge it ([triage](/kb/triage/dedupe)).
+- Re-read the one-day moves once there are more than five.
+
+<RenderStamp {signature} />
