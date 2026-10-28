@@ -3,24 +3,24 @@
 		<link href="../../_app/immutable/assets/Callout.89E4ZsOX.css" rel="stylesheet">
 		<link href="../../_app/immutable/assets/CauseTable.AZcnZ4nk.css" rel="stylesheet">
 		<link href="../../_app/immutable/assets/5.DyIVvStL.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../_app/immutable/entry/start.B2R2NlL4.js">
-		<link rel="modulepreload" href="../../_app/immutable/chunks/D_ebXZOm.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/start.ys6A6jJT.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/BMYGp8ML.js">
 		<link rel="modulepreload" href="../../_app/immutable/chunks/D2mDbKsL.js">
 		<link rel="modulepreload" href="../../_app/immutable/chunks/DEk3U65C.js">
-		<link rel="modulepreload" href="../../_app/immutable/entry/app.CuWwEpYd.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/app.D6qqBoNh.js">
 		<link rel="modulepreload" href="../../_app/immutable/chunks/DnL2WVvh.js">
 		<link rel="modulepreload" href="../../_app/immutable/chunks/CehajMgd.js">
 		<link rel="modulepreload" href="../../_app/immutable/chunks/CLJSIaTB.js">
 		<link rel="modulepreload" href="../../_app/immutable/nodes/0.Bt8glooh.js">
 		<link rel="modulepreload" href="../../_app/immutable/chunks/CXN4fkzy.js">
-		<link rel="modulepreload" href="../../_app/immutable/nodes/5.VufVNiA3.js">
-		<link rel="modulepreload" href="../../_app/immutable/chunks/BpixdYl2.js">
+		<link rel="modulepreload" href="../../_app/immutable/nodes/5.Cvwbtiwi.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/BY9R52NW.js">
 		<link rel="modulepreload" href="../../_app/immutable/chunks/bZka5cch.js">
 		<link rel="modulepreload" href="../../_app/immutable/chunks/D3Jp9HkG.js">
 		<link rel="modulepreload" href="../../_app/immutable/chunks/C7-lgDTk.js">
-		<link rel="modulepreload" href="../../_app/immutable/chunks/DpM60-Bb.js"><!--[--><!--]--><title>#4471 · three problems, not one · support kb</title></head><body><!--[--><!--[--><!----><!----><div class="kb svelte-60g32v"><header><a class="crumb svelte-60g32v" href="/kb">support desk · kb</a> <h1 class="svelte-60g32v">#4471 · three problems, not one</h1> <p class="meta svelte-60g32v"><span>owner <b>support desk</b></span> <span class="status draft svelte-60g32v">draft</span> <span class="svelte-60g32v">reviewed 2026-10-28 · 0 days ago</span></p></header> <!--[!--><!--]--> <main><p><a href="/kb/incidents/4471">#4471</a> was marked known: one parser bug, one fix queued. Read report by report,
+		<link rel="modulepreload" href="../../_app/immutable/chunks/DpM60-Bb.js"><!--[--><!--]--><title>#4471 · three problems, not one · support kb</title></head><body><!--[--><!--[--><!----><!----><div class="kb svelte-60g32v"><header><a class="crumb svelte-60g32v" href="/kb">support desk · kb</a> <h1 class="svelte-60g32v">#4471 · three problems, not one</h1> <p class="meta svelte-60g32v"><span>owner <b>support desk</b></span> <span class="status closed svelte-60g32v">closed</span> <span class="svelte-60g32v">reviewed 2026-10-28 · 0 days ago</span></p></header> <!--[!--><!--]--> <main><p><a href="/kb/incidents/4471">#4471</a> was marked known: one parser bug, one fix queued. Read report by report,
 it holds <strong>three different problems</strong>. The first one is what the ticket says. The other two are
-not fixed by that fix.</p> <aside class="warn svelte-hdh0t2"><!---->Fixing the parser closes only the first row below. The form hint and the one-day moves keep happening. The one-day moves are counted inside the parser row.<!----></aside><!----> <h2>The three problems</h2> <p class="sum svelte-okk69s"><strong>412</strong> reports in #4471 · <strong>2</strong> causes ·
+not fixed by that fix. Outcome: parser fixed, hint won’t fix (form retired).</p> <aside class="warn svelte-hdh0t2"><!---->Engineering closed #4471 on 5 October. The parser is fixed (`fix(dates): parse dd/mm for eu locales`). The form hint is won't fix, because the booking-v3 form is retired. The one-day moves are counted inside the parser row.<!----></aside><!----> <h2>The three problems</h2> <p class="sum svelte-okk69s"><strong>412</strong> reports in #4471 · <strong>2</strong> causes ·
   379 + 33 = 412</p> <table><thead><tr><th>problem</th><th>reports</th><th>tenants</th><th>channels</th><th>intake tagged it differently</th></tr></thead><tbody><!--[--><tr><td><code>parser</code></td><td>379</td><td>11</td><td>app, email, form</td><td>23</td></tr><tr><td><code>hint</code></td><td>33</td><td>3</td><td>form</td><td>15</td></tr><!--]--></tbody></table> <p class="note svelte-okk69s">Of those, <strong>5</strong> reports read as a one-day move, not a swapped month and day. They are filed under <code>parser</code> by tenant and counted there once. They are a third problem with its own ticket.</p><!----> <ol><li><strong>Parser</strong> (<a href="https://github.com/MKurpinski/what-it-shows/issues/1" rel="nofollow">issue 1</a>). The shared parser reads
 every date month first. Every tenant on file writes the day first, so their dates flip. This is the bug in the ticket title.</li> <li><strong>Form hint</strong> (<a href="https://github.com/MKurpinski/what-it-shows/issues/2" rel="nofollow">issue 2</a>). Only on the <code>booking-v3</code> form, only on the form channel. The form prints <code>MM/DD/YYYY</code> under the date field. People type what it says,
 and the form then reads it the tenant’s way. The parser fix does not touch it.</li> <li><strong>One-day move</strong> (<a href="https://github.com/MKurpinski/what-it-shows/issues/3" rel="nofollow">issue 3</a>). The desk read these
@@ -32,15 +32,15 @@ from the browser locale, which does not say which form or channel a report came 
 			
 			<script>
 				{
-					__sveltekit_1tjloxj = {
+					__sveltekit_h8ibr2 = {
 						base: new URL("../..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../../_app/immutable/entry/start.B2R2NlL4.js"),
-						import("../../_app/immutable/entry/app.CuWwEpYd.js")
+						import("../../_app/immutable/entry/start.ys6A6jJT.js"),
+						import("../../_app/immutable/entry/app.D6qqBoNh.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 5],
