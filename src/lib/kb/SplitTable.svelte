@@ -6,45 +6,38 @@
 
   let { ticket }: { ticket: number } = $props();
 
-  // The problems inside one ticket: the desk's one-day moves are pulled out of the cause they were filed under.
+  // The desk's view: reports counted under the cause they are filed by. The desk's one-day moves
+  // stay inside their cause and are shown as a note, so each report is counted once.
   const merged = $derived(uniqueById(reports as Report[]).filter((r) => r.mergedInto === ticket));
-  const rows = $derived.by(() => {
-    const oneDay = merged.filter((r) => notes.oneDayMove.includes(r.id));
-    const rest = merged.filter((r) => !notes.oneDayMove.includes(r.id));
-    const groups = groupByCause(rest, tenantOf);
-    return [
-      ...groups.map((g) => ({
-        problem: g.cause,
-        count: g.reports.length,
-        tenants: g.tenants,
-        channels: [...new Set(g.reports.map((r) => r.channel))].sort().join(', '),
-        wronglyTagged: g.reports.filter((r) => r.meta.intakeTag !== g.cause).length,
-      })),
-      {
-        problem: 'one-day move',
-        count: oneDay.length,
-        tenants: new Set(oneDay.map((r) => r.tenant)).size,
-        channels: [...new Set(oneDay.map((r) => r.channel))].sort().join(', '),
-        wronglyTagged: oneDay.length,
-      },
-    ];
-  });
-</script>
+  const groups = $derived(groupByCause(merged, tenantOf));
+  const oneDay = $derived(merged.filter((r) => notes.oneDayMove.includes(r.id)));
+  const total = $derived(groups.reduce((n, g) => n + g.reports.length, 0));</script>
 
 <p class="sum">
-  <strong>{merged.length}</strong> reports in #{ticket} · <strong>{rows.length}</strong> problems ·
-  {rows.map((r) => r.count).join(' + ')} = {rows.reduce((n, r) => n + r.count, 0)}
+  <strong>{merged.length}</strong> reports in #{ticket} · <strong>{groups.length}</strong> causes ·
+  {groups.map((g) => g.reports.length).join(' + ')} = {total}
 </p>
 
 <table>
   <thead><tr><th>problem</th><th>reports</th><th>tenants</th><th>channels</th><th>intake tagged it differently</th></tr></thead>
   <tbody>
-    {#each rows as r (r.problem)}
-      <tr><td><code>{r.problem}</code></td><td>{r.count}</td><td>{r.tenants}</td><td>{r.channels}</td><td>{r.wronglyTagged}</td></tr>
+    {#each groups as g (g.cause)}
+      <tr>
+        <td><code>{g.cause}</code></td>
+        <td>{g.reports.length}</td>
+        <td>{g.tenants}</td>
+        <td>{[...new Set(g.reports.map((r) => r.channel))].sort().join(', ')}</td>
+        <td>{g.reports.filter((r) => r.meta.intakeTag !== g.cause).length}</td>
+      </tr>
     {/each}
   </tbody>
 </table>
 
+<p class="note">
+  Of those, <strong>{oneDay.length}</strong> reports read as a one-day move, not a swapped month and day. They are filed under
+  <code>{groups.find((g) => oneDay.every((r) => g.reports.includes(r)))?.cause ?? 'parser'}</code> by tenant and counted there once. They are a third problem with its own ticket.
+</p>
 <style>
   .sum { font-size: 1.1rem; }
+  .note { color: var(--muted); font-size: 0.9em; }
 </style>
