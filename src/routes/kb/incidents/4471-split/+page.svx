@@ -19,7 +19,7 @@ it holds **three different problems**. The first one is what the ticket says. Th
 not fixed by that fix.
 
 <Callout kind="warn">
-Fixing the parser closes only the first row below. The form hint and the one-day moves keep happening.
+Fixing the parser closes only the first row below. The form hint and the one-day moves keep happening. The one-day moves are counted inside the parser row.
 </Callout>
 
 ## The three problems
