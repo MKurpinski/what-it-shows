@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · three problems, not one'
 owner: support desk
-status: draft
+status: closed
 reviewed: 2026-10-28
 signature: v1.eyJzdWIiOiIyNzU0IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxNzM3MzgsImV4cCI6MTc5MzI2MDEzOH0.x7x5qGSiZ-qKChD4n_5S7Rc14PwYOxXP5rLDhzE3zQo
 ---
@@ -16,10 +16,10 @@ signature: v1.eyJzdWIiOiIyNzU0IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYX
 
 [#4471](/kb/incidents/4471) was marked known: one parser bug, one fix queued. Read report by report,
 it holds **three different problems**. The first one is what the ticket says. The other two are
-not fixed by that fix.
+not fixed by that fix. Outcome: parser fixed, hint won't fix (form retired).
 
 <Callout kind="warn">
-Fixing the parser closes only the first row below. The form hint and the one-day moves keep happening. The one-day moves are counted inside the parser row.
+Engineering closed #4471 on 5 October. The parser is fixed (`fix(dates): parse dd/mm for eu locales`). The form hint is won't fix, because the booking-v3 form is retired. The one-day moves are counted inside the parser row.
 </Callout>
 
 ## The three problems
